@@ -673,6 +673,8 @@ function onDocumentMouseDown(event) {
     
     fireEvent('mousedown', event);
     animateInit();
+    
+    startOrientation();
 }
 
 /**
