@@ -654,7 +654,7 @@ function onDocumentMouseDown(event) {
     // Turn off auto-rotation if enabled
     stopAnimation();
 
-   // stopOrientation();
+   stopOrientation();
     config.roll = 0;
 
     speed.hfov = 0;
@@ -673,6 +673,8 @@ function onDocumentMouseDown(event) {
     
     fireEvent('mousedown', event);
     animateInit();
+    
+    startOrientation();
     
 }
 
