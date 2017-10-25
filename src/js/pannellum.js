@@ -206,6 +206,12 @@ controls.container.appendChild(controls.zoom);
 // Fullscreen toggle
 controls.fullscreen = document.createElement('div');
 controls.fullscreen.addEventListener('click', toggleFullscreen);
+// allow custom fullscreen handler    
+if (!initialConfig.alternativeFullscreenHandler) {
+    controls.fullscreen.addEventListener('click', toggleFullscreen);
+} else {
+    controls.fullscreen.addEventListener('click', initialConfig.alternativeFullscreenHandler);
+}
 controls.fullscreen.className = 'pnlm-fullscreen-toggle-button pnlm-sprite pnlm-fullscreen-toggle-button-inactive pnlm-controls pnlm-control';
 if (document.fullscreenEnabled || document.mozFullScreenEnabled || document.webkitFullscreenEnabled || document.msFullscreenEnabled)
     controls.container.appendChild(controls.fullscreen);
