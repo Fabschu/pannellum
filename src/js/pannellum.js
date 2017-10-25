@@ -205,7 +205,6 @@ controls.container.appendChild(controls.zoom);
 
 // Fullscreen toggle
 controls.fullscreen = document.createElement('div');
-controls.fullscreen.addEventListener('click', toggleFullscreen);
 // allow custom fullscreen handler    
 if (!initialConfig.alternativeFullscreenHandler) {
     controls.fullscreen.addEventListener('click', toggleFullscreen);
