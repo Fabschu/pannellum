@@ -2360,9 +2360,7 @@ window.pannellum = (function(window, document, undefined) {
               'startTime': Date.now(),
               'startPosition': config.yaw,
               'endPosition': yaw,
-              'duration': animated,
-              undefined,
-              undefined
+              'duration': animated
             };
         } else {
           setConfigYaw(yaw);
