@@ -2301,9 +2301,7 @@ window.pannellum = (function(window, document, undefined) {
               'startTime': Date.now(),
               'startPosition': config.pitch,
               'endPosition': pitch,
-              'duration': animated,
-              undefined,
-              undefined
+              'duration': animated
             };
         } else {
           config.pitch = pitch;
