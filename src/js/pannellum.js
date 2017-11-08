@@ -2419,9 +2419,7 @@ window.pannellum = (function(window, document, undefined) {
               'startTime': Date.now(),
               'startPosition': config.hfov,
               'endPosition': constrainHfov(hfov),
-              'duration': animated,
-              undefined,
-              undefined
+              'duration': animated
             };
         } else {
           setHfov(hfov);
