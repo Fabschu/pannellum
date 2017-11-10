@@ -753,7 +753,8 @@ function onDocumentMouseMove(event) {
         //TODO: This still isn't quite right
         var yaw = ((Math.atan(onPointerDownPointerX / canvasWidth * 2 - 1) - Math.atan(pos.x / canvasWidth * 2 - 1)) * 180 / Math.PI * config.hfov / 90) + onPointerDownYaw;
         speed.yaw = (yaw - config.yaw) % 360 * 0.2;
-        config.yaw = yaw;
+        // config.yaw = yaw;
+        setConfigYaw(yaw);
         
         var vfov = 2 * Math.atan(Math.tan(config.hfov/360*Math.PI) * canvasHeight / canvasWidth) * 180 / Math.PI;
         
@@ -870,7 +871,8 @@ function onDocumentTouchMove(event) {
 
         var yaw = (onPointerDownPointerX - clientX) * touchmovePanSpeedCoeff + onPointerDownYaw;
         speed.yaw = (yaw - config.yaw) % 360 * 0.2;
-        config.yaw = yaw;
+        // config.yaw = yaw;
+        setConfigYaw(yaw);
 
         var pitch = (clientY - onPointerDownPointerY) * touchmovePanSpeedCoeff + onPointerDownPitch;
         speed.pitch = (pitch - config.pitch) * 0.2;
@@ -1403,7 +1405,8 @@ function render() {
                 minYaw = maxYaw = (minYaw + maxYaw) / 2;
             }
         }
-        config.yaw = Math.max(minYaw, Math.min(maxYaw, config.yaw));
+        //config.yaw = Math.max(minYaw, Math.min(maxYaw, config.yaw));
+        setConfigYaw(Math.max(minYaw, Math.min(maxYaw, config.yaw)));
         
         // Check if we autoRotate in a limited by min and max yaw
         // If so reverse direction
@@ -1532,7 +1535,8 @@ function orientationListener(e) {
     var q = computeQuaternion(e.alpha, e.beta, e.gamma).toEulerAngles();
     config.pitch = q[0] / Math.PI * 180;
     config.roll = -q[1] / Math.PI * 180;
-    config.yaw = -q[2] / Math.PI * 180 + config.northOffset + orientationYawOffset;
+    // config.yaw = -q[2] / Math.PI * 180 + config.northOffset + orientationYawOffset;
+    setConfigYaw(-q[2] / Math.PI * 180 + config.northOffset + orientationYawOffset);
 }
 
 /**
@@ -2184,7 +2188,8 @@ function loadScene(sceneId, targetPitch, targetYaw, targetHfov, fadeDone) {
         config.pitch = workingPitch;
     }
     if (workingYaw !== undefined) {
-        config.yaw = workingYaw;
+        // config.yaw = workingYaw;
+        setConfigYaw(workingYaw);
     }
     if (workingHfov !== undefined) {
         config.hfov = workingHfov;
@@ -2336,7 +2341,8 @@ this.setYaw = function(yaw, animated, callback, callbackArgs) {
             'callbackArgs': callbackArgs
         }
     } else {
-        config.yaw = yaw;
+        // config.yaw = yaw;
+        setConfigYaw(yaw);
     }
     animateInit();
     return this;
@@ -2802,6 +2808,12 @@ function fireEvent(type) {
             externalEventListeners[type][externalEventListeners[type].length - i].apply(null, [].slice.call(arguments, 1));
         }
     }
+}
+
+
+function setConfigYaw(yaw) {
+	config.yaw = yaw;
+	fireEvent('yawchange', yaw);
 }
 
 /**
