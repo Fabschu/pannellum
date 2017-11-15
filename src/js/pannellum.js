@@ -2812,6 +2812,9 @@ function fireEvent(type) {
 
 
 function setConfigYaw(yaw) {
+	if(config.yaw === yaw){
+		return;
+	}
 	config.yaw = yaw;
 	fireEvent('yawchange', yaw);
 }
